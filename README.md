@@ -54,20 +54,17 @@ buildscript {
   }
   dependencies {
     classpath 'com.android.tools.build:gradle:+'
-    classpath 'com.neenbedankt.gradle.plugins:android-apt:+'
   }
 }
 
 apply plugin: 'android'
-apply plugin: 'android-apt'
 
 dependencies {
   compile 'com.github.frankiesardo:android-auto-value:+'
-  apt 'com.github.frankiesardo:android-auto-value-processor:+'
+  provided 'com.github.frankiesardo:android-auto-value-processor:+'
 }
 ```
 
-I recommend using the `android-apt` plugin so that Android Studio picks up the generated files.
 Check out the sample project for a working example.
 
 License
