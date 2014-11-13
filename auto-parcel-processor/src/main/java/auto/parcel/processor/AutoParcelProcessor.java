@@ -216,7 +216,9 @@ public class AutoParcelProcessor extends AbstractProcessor {
       "  public String toString() {",
       "    return \"$[simpleclassname]{\"$[props?\n        + \"]" +
       "$[props:p|\n        + \", |" +
-                "$[p]=\" + $[p.array?[$[Arrays].toString($[p])][$[p]]]]",
+                "$[p]=\" + $[p.redacted?" +
+                    "[($[p] != null ? \"██\" : null)]" +
+                    "[$[p.array?[$[Arrays].toString($[p])][$[p]]]]]]",
       "        + \"}\";",
       "  }]",
 
@@ -342,6 +344,16 @@ public class AutoParcelProcessor extends AbstractProcessor {
       for (AnnotationMirror annotationMirror : method.getAnnotationMirrors()) {
         String name = annotationMirror.getAnnotationType().asElement().getSimpleName().toString();
         if (name.equals("Nullable")) {
+          return true;
+        }
+      }
+      return false;
+    }
+
+    public boolean redacted() {
+      for (AnnotationMirror annotationMirror : method.getAnnotationMirrors()) {
+        String name = annotationMirror.getAnnotationType().asElement().getSimpleName().toString();
+        if (name.equals("Redacted")) {
           return true;
         }
       }
