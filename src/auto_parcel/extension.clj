@@ -36,7 +36,7 @@ final class {{& class-name}} extends {{& class-to-extend}} {
     {{/props}}
   }
 
-  private {{& class-name}}(Parcel in) {
+  {{& class-name}}(Parcel in) {
     this(
       {{#props}}
       ({{& cast-type}}) in.readValue(CL){{^last?}},{{/last?}}
